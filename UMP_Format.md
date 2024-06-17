@@ -172,15 +172,19 @@ message MediaHotConfig{
 }
 
 message OnesieHotConfig{
-	optional bytes clientKey = 1; // 32 byte encryption key. first 16 bytes are aes-128-ctr key. last 16 bytes are hmac sha256 key.
-	optional bytes encryptedClientKey = 2; // the encrypted client key, sent between client and server. the server uses this to decrypt the request
+    // 32 byte encryption key. first 16 bytes are aes-128-ctr key. last 16 bytes are hmac sha256 key.
+	optional bytes clientKey = 1;
+    // the encrypted client key, sent between client and server. the server uses this to decrypt the request
+	optional bytes encryptedClientKey = 2;
 	optional int64 keyExpiresInSeconds = 3;
 	optional string reverseProxyConfig = 5;
-	optional ConnectionPrewarmConfig prewarmConfig = 7; // urls for connection prewarming/keepalive
+    // urls for connection prewarming/keepalive
+	optional ConnectionPrewarmConfig prewarmConfig = 7;
 	repeated int32 audioItagWhitelistArray = 10;
 	repeated int32 videoItagWhitelistArray = 11;
 	optional Unnamed3701 unnamedField12 = 12;
-	optional bytes onesieUstreamerConfig = 16; // directly copied and sent in the request
+    // directly copied and sent in the request
+	optional bytes onesieUstreamerConfig = 16;
 	optional bool disableHostReplacement = 17;
 	optional bool retryEnabled = 22;
 	optional Unnamed1811 unnamedField23 = 23;
@@ -188,8 +192,12 @@ message OnesieHotConfig{
 	optional string unnamedField25 = 25;
 	optional bool disableFallbackToInnertube = 26;
 	optional bool sendClientInfoToUstreamer = 27;
-	optional bool sendMediaCapabilities = 29; // whether or not to send video_streaming.MediaCapabilities in the request
-	optional bool useHotConfigToCreateOnesieRequest = 30; // whether or not to use the hot config to create the request. not sure of the alternative, but there is also another OnesieConfig in the cold config group. it also contains the same encryption key related fields, but the key is different in the same response
+    // whether or not to send video_streaming.MediaCapabilities in the request
+	optional bool sendMediaCapabilities = 29;
+    // whether or not to use the hot config to create the request. not sure of the alternative,
+    // but there is also another OnesieConfig in the cold config group. it also contains the same
+    // encryption key related fields, but the key is different in the same response
+	optional bool useHotConfigToCreateOnesieRequest = 30;
 	optional bool useHotConfigWithMissingPlayback = 31;
 	optional string fallbackHostname = 32;
 	optional string fallbackUrlParams = 33;
@@ -267,21 +275,29 @@ option java_package = "com.google.protos.youtube.api.innertube";
 option objc_class_prefix = "YTI";
 
 message EncryptedInnertubeRequest{
-	optional InnerTubeContext context = 1; // contains only .youtube.api.innertube.ClientInfo. hl: 'zz', gl: 'zz', debugDeviceIdOverride: '0', clientName: ANDROID or IOS or any other, clientVersion: operating system version. not app version.
-	optional bytes encryptedOnesieRequest = 2; // encrypted via the function above. see below for type definition
-	optional bytes encryptedClientKey = 5; // from Onesie(Hot)Config::encryptedClientKey
+    // contains only .youtube.api.innertube.ClientInfo. hl: 'zz', gl: 'zz',
+    // debugDeviceIdOverride: '0', clientName: ANDROID or IOS or any other, clientVersion:
+    // operating system version. not app version.
+	optional InnerTubeContext context = 1;
+    // encrypted via the function above. see below for type definition
+	optional bytes encryptedOnesieRequest = 2;
+    // from Onesie(Hot)Config::encryptedClientKey
+	optional bytes encryptedClientKey = 5;
 	optional bytes iv = 6; // iv generated above
 	optional bytes hmac = 7; // hmac generated above
-	optional bool useCompression = 8; // if set to true, the `encryptedOnesieRequest` is gzipped before encrypted
-	optional string reverseProxyConfig = 9; // from Onesie(Hot)Config::reverseProxyConfig
+    // if set to true, the `encryptedOnesieRequest` is gzipped before encrypted
+	optional bool useCompression = 8;
+    // from Onesie(Hot)Config::reverseProxyConfig
+	optional string reverseProxyConfig = 9;
 	optional Unnamed7319 unnamedField12 = 12;
 }
 
 message OnesieInnertubeRequest{
 	repeated string unnamedField1 = 1;
 	optional Unnamed6053 unnamedField2 = 2;
-	optional EncryptedInnertubeRequest encryptedRequest = 3;
-	optional bytes ustreamerConfig = 4; // from Onesie(Hot)Config::onesieUstreamerConfig
+	optional EncryptedInnertubeRequest encryptedRequest = 3
+    // from Onesie(Hot)Config::onesieUstreamerConfig
+	optional bytes ustreamerConfig = 4;
 	optional int32 unnamedField5 = 5;
 	optional int32 unnamedField6 = 6;
 	optional .video_streaming.StreamerContext streamerContext = 10;
@@ -301,7 +317,8 @@ import "youtube/api/innertube/client_info.proto";
 option cc_enable_arenas = true;
 
 message StreamerContext{
-	optional .youtube.api.innertube.ClientInfo client = 1; // the same client used for all innertube requests
+    // the same client used for all innertube requests
+	optional .youtube.api.innertube.ClientInfo client = 1;
 	optional bytes unnamedField2 = 2; // unknown
 	optional bytes unnamedField3 = 3;
 	optional bytes unnamedField4 = 4;
@@ -323,10 +340,17 @@ message HttpHeader{
 }
 
 message OnesieRequestProto{
-	optional string url = 1; // INNERTUBE_API_BASE/youtubei/v1/(player|otherapi,unknown) (?key=APIKEY&id=VIDEOID)
-	repeated HttpHeader headers = 2; // Content-Type: application/x-protobuf. X-Goog-Api-Format-Version: 2. User-Agent: same user agent sent in player requests, optionally tagged with gzip at the end. If not, the response may be compressed using brotli. Authorization: Bearer [token], if applicable
-	optional bytes body = 3; // the request payload. if its /player, this is a serialized PlayerRequest
-	optional bool unnamedField4 = 4; // unknown. always set to true
+    // INNERTUBE_API_BASE/youtubei/v1/(player|otherapi,unknown) (?key=APIKEY&id=VIDEOID)
+	optional string url = 1;
+    // Content-Type: application/x-protobuf. X-Goog-Api-Format-Version: 2.
+    // User-Agent: same user agent sent in player requests, optionally tagged with gzip at the end.
+    // If not, the response may be compressed using brotli.
+    // Authorization: Bearer [token], if applicable
+	repeated HttpHeader headers = 2;
+    // the request payload. if its /player, this is a serialized PlayerRequest
+	optional bytes body = 3;
+    // unknown. always set to true
+	optional bool unnamedField4 = 4;
 }
 ```
 
@@ -400,9 +424,11 @@ syntax = "proto2";
 package video_streaming;
 
 enum OnesieHeaderType{
-	PLAYER_RESPONSE = 0; // expect a ONESIE_DATA with an encrypted player response
+    // expect a ONESIE_DATA with an encrypted player response
+	PLAYER_RESPONSE = 0;
 	OnesieHeaderType_value_1 = 1; // unknown
-	MEDIA_DECRYPTION_KEY = 2; // expect a ONESIE_DATA of which the 16 byte data is the decryption key for ONESIE_ENCRYPTED_MEDIA
+    // expect a ONESIE_DATA of which the 16 byte data is the decryption key for ONESIE_ENCRYPTED_MEDIA
+	MEDIA_DECRYPTION_KEY = 2;
 	OnesieHeaderType_value_3 = 3; // unknown
 	OnesieHeaderType_value_4 = 4; // unknown
 	OnesieHeaderType_value_5 = 5; // unknown
@@ -414,9 +440,11 @@ enum OnesieHeaderType{
 	OnesieHeaderType_value_11 = 11; // unknown
 	OnesieHeaderType_value_12 = 12; // unknown
 	OnesieHeaderType_value_13 = 13; // unknown
-	RESTRICTED_FORMATS_HINT = 14; // specifies that OnesieHeader::restrictedFormats is set
+    // specifies that OnesieHeader::restrictedFormats is set
+	RESTRICTED_FORMATS_HINT = 14;
 	OnesieHeaderType_value_15 = 15; // unknown
-	STREAM_METADATA = 16; // specifies that stream metadata, like OnesieHeader::{sequencNumber, startRange} etc are set
+    // specifies that stream metadata, like OnesieHeader::{sequencNumber, startRange} etc are set
+	STREAM_METADATA = 16;
 	OnesieHeaderType_value_17 = 17; // unknown
 	OnesieHeaderType_value_18 = 18; // unknown
 	OnesieHeaderType_value_19 = 19; // unknown
@@ -434,8 +462,10 @@ enum OnesieHeaderType{
 }
 
 enum CompressionType{
-    CompressionType_value_0 = 0; // unknown. probably deflate. both are handled with gzip in the disassembled code.
-    CompressionType_value_1 = 1; // unknown. probably gzip. both are handled with gzip in the disassembled code.
+    // unknown. probably deflate. both are handled with gzip in the disassembled code.
+    CompressionType_value_0 = 0;
+    // unknown. probably gzip. both are handled with gzip in the disassembled code.
+    CompressionType_value_1 = 1;
     BROTLI = 2;
 }
 
