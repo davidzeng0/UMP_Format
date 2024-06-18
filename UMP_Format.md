@@ -540,7 +540,7 @@ message OnesieInnertubeResponse{
 ```
 
 If the proxy status is not `OK`, panic or throw an exception.
-If the status is not 200, panic or throw an exception. The response body is undetermined.
+If the status is not 200, panic or throw an exception. Error codes have a response body in the same format as a Google Cloud API error response.
 
 The body can be deserialized as a `PlayerResponse`.
 
