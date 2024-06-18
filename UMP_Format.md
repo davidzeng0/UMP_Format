@@ -626,8 +626,6 @@ message MediaHeader{
 }
 ```
 
-Do note that it is possible, but unlikely, for multiple `headerId`s to be active at the same time.
-
 ### Part 21: MEDIA
 
 Contains the actual media itself. Starts with a UMP varint corresponding to `MediaHeader::headerId`, followed by the media data.
