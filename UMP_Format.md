@@ -1,6 +1,10 @@
 # UMP Format
 
-The UMP format is used by YouTube, Google Photos, and Google Drive (and possibly more) for a number of requests and responses. This document details the format for the purposes of interoperability.
+The UMP (likely Universal Media Playback) format is used as the response format by all Google services that play videos. This document details the format for the purposes of interoperability.
+
+There are 2 request formats for /videoplayback:
+- VideoPlaybackRequestProto. Gets media data with ump.
+- VideoPlaybackAbrRequestProto. Can fetch media data for two itags at the same time. Interlaced data response. Uses server abr streaming url.
 
 ## Variable sized integers
 
