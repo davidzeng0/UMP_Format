@@ -493,7 +493,7 @@ message OnesieHeader{
     optional string itag = 3;
     optional CryptoParams cryptoParams = 4;
     optional uint64 lastModified = 5;
-    optional int64 startRange = 6;
+    optional int64 unnamedField6 = 6;
     optional int64 expectedMediaSizeBytes = 7;
     repeated string restrictedFormats = 11;
     optional TimestampRange unnamedField14 = 14;
