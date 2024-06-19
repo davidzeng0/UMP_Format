@@ -753,11 +753,11 @@ Unknown purpose and format. Unused.
 
 ### Part 43: SABR_REDIRECT
 
-Unknown purpose and format.
+Contains a url. The client should use this url for further requests.
 
 ### Part 44: SABR_ERROR
 
-Unknown purpose and format.
+Error in request payload.
 
 ### Part 45: SABR_SEEK
 
