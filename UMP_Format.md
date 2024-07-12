@@ -449,7 +449,7 @@ enum OnesieHeaderType{
     // specifies that OnesieHeader::restrictedFormats is set
 	RESTRICTED_FORMATS_HINT = 14;
 	OnesieHeaderType_value_15 = 15; // unknown
-    // specifies that stream metadata, like OnesieHeader::{sequencNumber, startRange} etc are set
+    // specifies that stream metadata, like OnesieHeader::{sequenceNumber, startRange} etc are set
 	STREAM_METADATA = 16;
 	OnesieHeaderType_value_17 = 17; // unknown
 	OnesieHeaderType_value_18 = 18; // unknown
