@@ -122,7 +122,6 @@ syntax = "proto2";
 package youtube.api.innertube;
 
 import "youtube/api/innertube/service_tracking_params.proto";
-import "youtube/api/innertube/global_config_group.proto";
 
 option cc_enable_arenas = true;
 option java_multiple_files = true;
@@ -302,7 +301,7 @@ message EncryptedInnertubeRequest{
 message OnesieInnertubeRequest{
 	repeated string unnamedField1 = 1;
 	optional Unnamed6053 unnamedField2 = 2;
-	optional EncryptedInnertubeRequest encryptedRequest = 3
+	optional EncryptedInnertubeRequest encryptedRequest = 3;
     // from Onesie(Hot)Config::onesieUstreamerConfig
 	optional bytes ustreamerConfig = 4;
 	optional int32 unnamedField5 = 5;
