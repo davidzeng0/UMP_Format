@@ -481,9 +481,10 @@ message CryptoParams{
 	optional CompressionType compressionType = 6;
 }
 
-message TimestampRange{
-	optional int64 startTimestamp = 1;
-	optional int64 endTimestamp = 2;
+message TimeRange{
+	optional int64 start = 1;
+	optional int64 duration = 2;
+	optional int32 timeScale = 3;
 }
 
 message OnesieHeader{
@@ -495,7 +496,7 @@ message OnesieHeader{
     optional int64 unnamedField6 = 6;
     optional int64 expectedMediaSizeBytes = 7;
     repeated string restrictedFormats = 11;
-    optional TimestampRange unnamedField14 = 14;
+    optional TimeRange unnamedField14 = 14;
     optional string xtags = 15;
     optional int64 sequenceNumber = 18;
 }
@@ -612,6 +613,12 @@ package video_streaming;
 
 option cc_enable_arenas = true;
 
+message FormatId {
+	optional int32 itag = 1;
+	optional uint64 lastModified = 2;
+	optional string xtags = 3;
+}
+
 message MediaHeader{
 	enum CompressionType{
 		CompressionType_value_0 = 0; // unknown. no-op
@@ -623,12 +630,15 @@ message MediaHeader{
 	optional string videoId = 2;
 	optional int32 itag = 3;
 	optional uint64 lastModified = 4;
-	optional string unnamedField5 = 5;
+	optional string xtags = 5;
 	optional int64 startRange = 6;
 	optional MediaHeader.CompressionType compressionType = 7;
-	optional bool unnamedField8 = 8;
-	optional int64 unnamedField9 = 9;
+	optional bool isInitSegment = 8;
+	optional int64 sequenceNumber = 9;
 	optional int64 unnamedField10 = 10;
+	optional FormatId formatId = 13;
+	optional int64 length = 14;
+	optional TimeRange timeRange = 15;
 }
 ```
 
