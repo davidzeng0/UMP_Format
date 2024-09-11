@@ -1,5 +1,7 @@
 # UMP Format
 
+# Updated information at https://github.com/davidzeng0/innertube
+
 The UMP (likely Universal Media Playback) format is used as the response format by all Google services that play videos. This document details the format for the purposes of interoperability.
 
 There is 1 request format for /initplayback:
